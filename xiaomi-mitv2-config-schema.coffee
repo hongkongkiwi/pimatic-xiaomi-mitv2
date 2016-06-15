@@ -3,7 +3,12 @@
 module.exports = {
   title: "Xiaomi MiTv2 Plugin Options"
   type: "object"
-  #properties:
+  properties:
+    debug:
+      description: "Whether debugging is enabled"
+      type: "boolean"
+      default: false
+
 }
 # option1:
 #   description: "Some option"

@@ -19,8 +19,8 @@ module.exports = (env) ->
 
   # Require the [cassert library](https://github.com/rhoot/cassert).
   assert = env.require 'cassert'
-  MITV = Promise.promisify(require('xiaomi-mitv2-remote'))
-  _ = env.require 'underscore'
+  MITV = Promise.promisifyAll(require('xiaomi-mitv2-remote'))
+  _ = require 'underscore'
 
   # Include you own depencies with nodes global require function:
   #
@@ -44,7 +44,7 @@ module.exports = (env) ->
     init: (app, @framework, @config) =>
       #env.logger.info("Hello World")
 
-      deviceConfigDef = require("./device-config-schema")
+      deviceConfigDef = require "./device-config-schema"
 
       env.logger.info("Hello World")
 
@@ -68,13 +68,14 @@ module.exports = (env) ->
             type: Boolean
     attributes:
       powerState:
-        type: Boolean
+        description: "Whether the TV is powered on"
+        type: "boolean"
 
     constructor: (@config) ->
       @name = @config.name
       @id = @config.id
       @mitv = new MITV(@config.ip)
-      @powerState = off
+      @_powerState = off
 
       super()
 
@@ -90,6 +91,10 @@ module.exports = (env) ->
         env.logger.error error.message
         env.logger.debug error.stack
       )
+
+    getPowerState: () -> Promise.resolve(@_powerState)
+
+    getTemplateName: -> "mitv-device"
 
   # For Testing
   plugin.XiaomiDevice = XiaomiDevice
