@@ -1,21 +1,25 @@
-{ "name": "pimatic-plugin-template",
+{
+  "name": "pimatic-xiaomi-mitv2",
   "description": "The plugin description",
-  "author": "Your Name <you@example.com> (http://your-website)",
-  "main": "my-plugin",
+  "author": "Andy Savage <andy@savage.hk>",
+  "main": "xiaomi-mitv2",
   "files": [
-    "my-plugin.coffee",
+    "xiaomi-mitv2.coffee",
+    "xiaomi-mitv2-config-schema.coffee"
     "README.md",
-    "my-plugin-config-schema.coffee"
+    "LICENSE",
   ],
   "version": "0.8.0",
-  "homepage": "http://your-plugin-website",
+  "homepage": "https://www.github.com/hongkongkiwi/pimatic-xiaomi-mitv2",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/pimatic/pimatic-plugin-template.git"
+    "url": "https://www.github.com/hongkongkiwi/pimatic-xiaomi-mitv2.git"
   },
-  "configSchema": "my-plugin-config-schema.coffee",
+  "license": "MIT",
+  "configSchema": "xiaomi-mitv2-config-schema.coffee",
   "dependencies": {
+    "xiaomi-mitv2-remote": "^1.0.1"
   },
   "peerDependencies": {
     "pimatic": "0.8.*"
