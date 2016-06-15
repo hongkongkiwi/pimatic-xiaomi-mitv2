@@ -8,7 +8,8 @@ They are smart tv's which are network capable. This plugin is designed to perfor
 
 ```json
 {
-	"plugin" : "xiaomi-mitv2"
+	"plugin" : "xiaomi-mitv2",
+    "debug": false
 }
 ```
 

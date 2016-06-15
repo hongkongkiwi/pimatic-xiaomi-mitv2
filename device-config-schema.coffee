@@ -1,32 +1,41 @@
 # #Shell device configuration options
 module.exports = {
   title: "pimatic-xiaomi-mitv2 device config schemas"
-  XiaomiSwitch: {
-    title: "ShellSwitch config options"
+  XiaomiDevice: {
+    title: "Xiaomi MiTV2 config"
     type: "object"
-    extensions: ["xConfirm", "xLink", "xOnLabel", "xOffLabel"]
     properties:
-      onCommand:
-        description: "the command to execute for switching on"
+      ip:
+        description: "Local Ip Address for your MiTV"
         type: "string"
-      offCommand:
-        description: "the command to execute for switching off"
-        type: "string"
-      getStateCommand:
-        description: "
-          the command to execute to get current state.
-          Can return on/off, true/false or 1/0 as string
-        "
-        type: "string"
-        required: false
-      interval:
-        description: "
-          the time in ms, the command gets executed to get the actual state.
-          If 0 then the state will not updated automatically.
-        "
-        type: "number"
-        default: 0
+        default: "255.255.255.255"
   }
+  # XiaomiSwitch: {
+  #   title: "ShellSwitch config options"
+  #   type: "object"
+  #   extensions: ["xConfirm", "xLink", "xOnLabel", "xOffLabel"]
+  #   properties:
+  #     onCommand:
+  #       description: "the command to execute for switching on"
+  #       type: "string"
+  #     offCommand:
+  #       description: "the command to execute for switching off"
+  #       type: "string"
+  #     getStateCommand:
+  #       description: "
+  #         the command to execute to get current state.
+  #         Can return on/off, true/false or 1/0 as string
+  #       "
+  #       type: "string"
+  #       required: false
+  #     interval:
+  #       description: "
+  #         the time in ms, the command gets executed to get the actual state.
+  #         If 0 then the state will not updated automatically.
+  #       "
+  #       type: "number"
+  #       default: 0
+  # }
   # ShellSensor: {
   #   title: "ShellSensor config options"
   #   type: "object"

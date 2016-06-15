@@ -19,7 +19,8 @@ module.exports = (env) ->
 
   # Require the [cassert library](https://github.com/rhoot/cassert).
   assert = env.require 'cassert'
-  MITV = require 'xiaomi-mitv2-remote'
+  MITV = Promise.promisify(require 'xiaomi-mitv2-remote')
+  _ = env.require 'underscore'
 
   # Include you own depencies with nodes global require function:
   #
@@ -28,7 +29,7 @@ module.exports = (env) ->
 
   # ###MyPlugin class
   # Create a class that extends the Plugin class and implements the following functions:
-  class XiaomiMiTv2 extends env.plugins.Plugin
+  class XiaomiMiTV2 extends env.plugins.Plugin
 
     # ####init()
     # The `init` function is called by the framework to ask your plugin to initialise.
@@ -41,12 +42,57 @@ module.exports = (env) ->
     #
     #
     init: (app, @framework, @config) =>
-      env.logger.info("Hello World")
+      #env.logger.info("Hello World")
+      @debug = @config.debug
 
-      @mitv = new MITV("192.168.1.154")
+      deviceConfigDef = require './device-config-schema'
+
+      @framework.deviceManager.registerDeviceClass("XiaomiDevice", {
+        configDef: deviceConfigDef.XiaomiDevice
+        createCallback: (config) => new XiaomiDevice(config)
+      })
+
+  class XiaomiDevice extends env.devices.Device
+    actions:
+      powerOn:
+        description: "power the TV on"
+      powerOff:
+        description: "power the TV off"
+      changeStateTo:
+        description: "changes the power to on or off"
+        params:
+          state:
+            type: Boolean
+    attributes:
+      powerState:
+        description: "TV is powered on"
+        type: "boolean"
+
+    constructor: (@config) ->
+      @name = @config.name
+      @id = @config.id
+      @debug = @config.debug
+      @mitv = new MITV(@config.ip)
+      @_powerState = off
+      super()
+
+    # Returns a promise
+    powerOn: -> @changeStateTo on
+
+    # Retuns a promise
+    powerOff: -> @changeStateTo off
+
+    changePowerStateTo: (powerState) ->
+      if @powerState is powerState then return
+      return mitv.sendPowerButtonAsync().then( =>
+        @_powerState = powerState
+        @emit "powerState", @_powerState
+      )
+
+    getPowerState: () -> Promise.resolve(@_powerState)
 
   # ###Finally
   # Create a instance of my plugin
-  mitv2 = new XiaomiMiTv2
+  mitv2 = new XiaomiMiTV2
   # and return it to the framework.
   return mitv2

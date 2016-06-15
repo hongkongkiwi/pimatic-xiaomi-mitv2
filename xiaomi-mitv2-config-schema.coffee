@@ -3,9 +3,9 @@
 module.exports = {
   title: "Xiaomi MiTv2 Plugin Options"
   type: "object"
-  properties:
-    # option1:
-    #   description: "Some option"
-    #   type: "string"
-    #   default: "foo"
+  #properties:
 }
+# option1:
+#   description: "Some option"
+#   type: "string"
+#   default: "foo"
