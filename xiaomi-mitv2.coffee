@@ -53,6 +53,8 @@ module.exports = (env) ->
         createCallback: (config) => new XiaomiDevice(config)
       })
 
+  plugin = new XiaomiMiTV2Plugin
+
   class XiaomiDevice extends env.devices.Device
     actions:
       powerOn:
@@ -62,8 +64,11 @@ module.exports = (env) ->
       changeStateTo:
         description: "changes the power to on or off"
         params:
-          state:
+          powerState:
             type: Boolean
+    attributes:
+      powerState:
+        type: Boolean
 
     constructor: (@config) ->
       @name = @config.name
@@ -85,10 +90,6 @@ module.exports = (env) ->
         env.logger.error error.message
         env.logger.debug error.stack
       )
-
-  # ###Finally
-  # Create a instance of plugin
-  plugin = new XiaomiMiTV2Plugin
 
   # For Testing
   plugin.XiaomiDevice = XiaomiDevice
