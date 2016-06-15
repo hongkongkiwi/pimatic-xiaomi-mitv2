@@ -19,6 +19,7 @@ module.exports = (env) ->
 
   # Require the [cassert library](https://github.com/rhoot/cassert).
   assert = env.require 'cassert'
+  MITV = require 'xiaomi-mitv2-remote'
 
   # Include you own depencies with nodes global require function:
   #
@@ -41,6 +42,8 @@ module.exports = (env) ->
     #
     init: (app, @framework, @config) =>
       env.logger.info("Hello World")
+
+      @mitv = new MITV("192.168.1.154")
 
   # ###Finally
   # Create a instance of my plugin

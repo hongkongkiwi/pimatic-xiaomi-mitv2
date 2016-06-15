@@ -1,13 +1,14 @@
 {
   "name": "pimatic-xiaomi-mitv2",
-  "description": "The plugin description",
+  "description": "Plugin to control the Xiaomi MiTV2 over the network. This can be used an an event handler to turn on the TV when a button is pressed etc",
   "author": "Andy Savage <andy@savage.hk>",
   "main": "xiaomi-mitv2",
   "files": [
     "xiaomi-mitv2.coffee",
-    "xiaomi-mitv2-config-schema.coffee"
+    "xiaomi-mitv2-config-schema.coffee",
+    "device-config-schema.coffee",
     "README.md",
-    "LICENSE",
+    "LICENSE"
   ],
   "version": "0.8.0",
   "homepage": "https://www.github.com/hongkongkiwi/pimatic-xiaomi-mitv2",
@@ -22,7 +23,7 @@
     "xiaomi-mitv2-remote": "^1.0.1"
   },
   "peerDependencies": {
-    "pimatic": "0.8.*"
+    "pimatic": ">=0.8.0 <1.0.0"
   },
   "engines": {
     "node": ">0.8.x",
